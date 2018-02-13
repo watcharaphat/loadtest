@@ -50,7 +50,7 @@ async function PostRequest(){
         });
     });
 
-    // post_req.write(post_data);
+     post_req.write(post_data);
      post_req.end();
     log += msg_date+"|" +messageCounter+"|" + msg + "\r\n";
     messageCounter++;
