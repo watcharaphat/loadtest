@@ -4,7 +4,9 @@
   "description": "Load Test",
   "main": "loadtest.js",
   "scripts": {
-    "start": "node loadtest.js -d 5 -m 10 -s 0 -a localhost,3000,localhost,3000,localhost,3000,localhost,3000,localhost,3000,localhost,3000"
+    "start": "node loadtest.js -d 5 -m 10 -s 0 -a localhost,3000,localhost,3000,localhost,3000,localhost,3000,localhost,3000,localhost,3000",
+    "docker-genesis": "node loadtest -d 10 -m -10 -s 0 -a localhost,8000,localhost,8000,localhost,8000,localhost,8000,localhost,8000,localhost,8000",
+    "kube-genesis": "node loadtest.js -d 10 -m 100 -s 0 -a ${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000"
   },
   "license": "ISC",
   "devDependencies": {},
