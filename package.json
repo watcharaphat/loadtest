@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node loadtest.js -d 5 -m 10 -s 0 -a localhost,3000,localhost,3000,localhost,3000,localhost,3000,localhost,3000,localhost,3000",
     "docker-genesis": "node loadtest -d 10 -m -10 -s 0 -a localhost,8000,localhost,8000,localhost,8000,localhost,8000,localhost,8000,localhost,8000",
+    "kube-10": "node loadtest -d 10 -m -10 -s 0 -b ${DISCOVERY_HOSTNAME}:${DISCOVERY_PORT}",
+    "kube-100": "node loadtest -d 10 -m -100 -s 0 -b ${DISCOVERY_HOSTNAME}:${DISCOVERY_PORT}",
     "kube-genesis-10": "node loadtest.js -d 10 -m 10 -s 0 -a ${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000",
     "kube-genesis-100": "node loadtest.js -d 10 -m 100 -s 0 -a ${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000,${GENESIS_HOSTNAME},8000"
   },
