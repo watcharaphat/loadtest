@@ -33,7 +33,7 @@ async function PostRequest(){
     const msg_date = dateFormat(new Date().toISOString(), "yymmddHHMMss.l");
     const msg = (new Array(MSG_SIZE[rand_size][0]).join( msg_date )).slice(0,MSG_SIZE[rand_size][1]);
     const endpointType = Math.floor(Math.random() * 2); 
-    const index = messageCounter;
+    const index = messageCounter % 3;
     var post_data = JSON.stringify({ message: msg })
     
     if(address[index]!= null){ // test is there is more addresses or not
@@ -173,7 +173,7 @@ async function ParseArgv(){
 }
 
 ParseArgv().then(async () => {
-    callRequest(duration,mode,messageCounter);
+    callRequest(duration, mode, messageCounter);
 });
 
 // async function main(){
