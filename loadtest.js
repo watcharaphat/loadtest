@@ -142,7 +142,7 @@ async function ParseArgv(){
     mode = argv.m|0;
     startSeq = argv.s|0;
     messageCounter = startSeq;
-    if(argv.a){
+    if (argv.a){
         var string = argv.a;
         // Get IP addresses from text file passed in parameter
         fs.readFile(string, 'utf8', function(err, file) {
@@ -150,9 +150,18 @@ async function ParseArgv(){
                     address = file.split(";");
                     console.log("All IPs are fetched");
                     });
-    }else{
-        var api_url = 'http://api.watcharaphat.com/ip/list';
-        var response = await axios.get(api_url);
+    } else if (argv.b) {
+        const baseURL = `http://${argv.b}`;
+        const api = '/ip/list';
+        const url = `${baseURL}/${api}`
+        let response;
+        try {
+            response = await axios.get(url);
+            console.log(`IP address list: ${util.inspect(response.data.ip)}`);
+        } catch (err) {
+            console.error('Error getting IP Address list, exit(1)', err);
+            process.exit(1);
+        }
         var i=0;
         while(response.data.ip[i]){
             response.data.ip[i] = response.data.ip[i] +";8000";
@@ -160,7 +169,6 @@ async function ParseArgv(){
         }
         address = response.data.ip;
         console.log("All IPs are fetched");
-
     }
 }
 
