@@ -153,7 +153,7 @@ async function ParseArgv(){
     } else if (argv.b) {
         const baseURL = `http://${argv.b}`;
         const api = '/ip/list';
-        const url = `${baseURL}/${api}`
+        const url = `${baseURL}${api}`
         let response;
         try {
             response = await axios.get(url);
@@ -172,8 +172,12 @@ async function ParseArgv(){
     }
 }
 
-async function main(){
-    await ParseArgv();
+ParseArgv().then(async () => {
     callRequest(duration,mode,messageCounter);
-}
-main();
+});
+
+// async function main(){
+//     await ParseArgv();
+//     callRequest(duration,mode,messageCounter);
+// }
+// main();
