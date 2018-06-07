@@ -28,12 +28,14 @@ const MSG_SIZE = [
 ];
 const ENDPOINT = ["send_all", "send_idp"];
 
-async function PostRequest(){
+let numberOfNode = 0;
+
+async function PostRequest() {
   const rand_size = Math.floor(Math.random() * 3); //random 0 =128 byte , 1 = 512 byte , 2 = 1024 byte
   const msg_date = dateFormat(new Date().toISOString(), "yymmddHHMMss.l");
   const msg = (new Array(MSG_SIZE[rand_size][0]).join( msg_date )).slice(0,MSG_SIZE[rand_size][1]);
   const endpointType = Math.floor(Math.random() * 2); 
-  const index = messageCounter%6;
+  const index = messageCounter%numberOfNode;
   var post_data = JSON.stringify({ message: msg })
   var post_options = {
     host: address[index*2],
@@ -56,8 +58,7 @@ async function PostRequest(){
   log += msg_date+"," +messageCounter+"," +(endpointType == 0 ? "A" : "I")+"," +index+"," +MSG_SIZE[rand_size][1]+"," + msg + "\r\n";
   messageCounter++;
 }
-async function callRequest(_duration,_mode){
-  
+async function callRequest(_duration,_mode) {
   var duration_microsec = (_duration*1000000) + 'u';
   if(_mode == 0) {
     startTime = new Date();
@@ -132,7 +133,7 @@ async function ParseArgv() {
   if (argv.a) {
     var string = argv.a;
     address = string.split(",");
-    console.log()
+    numberOfNode = 6;
   } else if (argv.b) {
     const baseURL = `http://${argv.b}`;
     const api = '/ip/list';
@@ -147,15 +148,16 @@ async function ParseArgv() {
     }
 
     const ips = response.data.ip;
+    numberOfNode = ips.length;
 
     address = [];
     ips.forEach((ip) => {
       address.push(ip);
       address.push('8000');
-      address.push(ip);
-      address.push('8000');
-      address.push(ip);
-      address.push('8000');
+      // address.push(ip);
+      // address.push('8000');
+      // address.push(ip);
+      // address.push('8000');
     });
 
     console.log("All IPs are fetched");
