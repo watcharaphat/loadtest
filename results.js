@@ -1,6 +1,5 @@
 var argv = require('yargs')
 .usage('Usage: $0 -a [string]')
-.demandOption(['a'])
 .argv;
 const util= require('util');
 var fs = require('fs');
@@ -20,9 +19,25 @@ const csv = require('fast-csv');
 
 
 async function run(){
-    var string = argv.a;
-    const file = await readFilePromise(string, 'utf8');
-    address = file.split(";");
+    if(argv.a){
+        var string = argv.a;
+        fs.readFile(string, 'utf8', function(err, file) {
+                    if (err) throw err;
+                    address = file.split(";");
+                    console.log("All IPs are fetched");
+                    });
+    }else{
+        var api_url = 'http://api.watcharaphat.com/ip/list';
+        var response = await axios.get(api_url);
+        var i=0;
+        while(response.data.ip[i]){
+            response.data.ip[i] = response.data.ip[i] +";8000";
+            i++;
+        }
+        address = response.data.ip;
+        console.log("All IPs are fetched");
+        
+    }
     await getAllFiles(address); // download all files from webservers of specified IP address
     calculation(address);
 }
@@ -56,7 +71,7 @@ async function getAllFiles(address) {
     var index = 0;
     console.log("Start downloading the remote result files");
     while(address[index]!=null){
-        var destination = address[index].split(",");
+        var destination = address[index].split(";");
         await downloadFile(destination[0],'result.csv' );
         index +=2;
     }
@@ -72,7 +87,7 @@ async function calculation(address){
     
     // Get each result file from TM nodes
     while(address[index]!=null){
-        var destinationPair = address[index].split(",");
+        var destinationPair = address[index].split(";");
         
         var filePath = "results/" + destinationPair[0] + ".csv" ;
         var fileData = await readFilePromise(filePath,'utf8');

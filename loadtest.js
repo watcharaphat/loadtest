@@ -3,10 +3,12 @@ var distributions = require('probdist');
 var NanoTimer = require('nanotimer');
 var http = require('http');
 var fs = require('fs');
+const axios = require('axios');
 var argv = require('yargs')
     .usage('Usage: $0 -d [num] -m [num] -s [num] -a [string]')
-    .demandOption(['d','m','a'])
+    .demandOption(['d','m'])
     .argv;;
+const util= require('util');
 
 var messageCounter = 0;
 var startSeq,startTime,endTime;
@@ -17,6 +19,7 @@ var log="";
 var poisson_sleep
 var startClock;
 var poisson_time;
+
 
 const MSG_SIZE = [
   [9, 128],
@@ -30,11 +33,11 @@ async function PostRequest(){
     const msg_date = dateFormat(new Date().toISOString(), "yymmddHHMMss.l");
     const msg = (new Array(MSG_SIZE[rand_size][0]).join( msg_date )).slice(0,MSG_SIZE[rand_size][1]);
     const endpointType = Math.floor(Math.random() * 2); 
-    const index = messageCounter%3;
+    const index = messageCounter;
     var post_data = JSON.stringify({ message: msg })
     
     if(address[index]!= null){ // test is there is more addresses or not
-    var destination = address[index].split(",");
+    var destination = address[index].split(";");
     
     var post_options = {
         host: destination[0],
@@ -59,7 +62,7 @@ async function PostRequest(){
     messageCounter++;
 }
 async function callRequest(_duration,_mode){
-  
+    console.log("Start sending transactions");
   var duration_microsec = (_duration*1000000) + 'u';
 if(_mode == 0){
         startTime = new Date();
@@ -133,21 +136,36 @@ function timeout(timer){
   }); 
 }
 
-function ParseArgv(){
+async function ParseArgv(){
+    console.log("Start getting the ip addresses of all nodes");
     duration = argv.d;
     mode = argv.m|0;
     startSeq = argv.s|0;
     messageCounter = startSeq;
-    var string = argv.a;
-    // Get IP addresses from text file passed in parameter
-    fs.readFile(string, 'utf8', function(err, file) {
-                if (err) throw err;
-                address = file.split(";");
-                });
+    if(argv.a){
+        var string = argv.a;
+        // Get IP addresses from text file passed in parameter
+        fs.readFile(string, 'utf8', function(err, file) {
+                    if (err) throw err;
+                    address = file.split(";");
+                    console.log("All IPs are fetched");
+                    });
+    }else{
+        var api_url = 'http://api.watcharaphat.com/ip/list';
+        var response = await axios.get(api_url);
+        var i=0;
+        while(response.data.ip[i]){
+            response.data.ip[i] = response.data.ip[i] +";8000";
+            i++;
+        }
+        address = response.data.ip;
+        console.log("All IPs are fetched");
+
+    }
 }
 
-function main(){
-    ParseArgv();
+async function main(){
+    await ParseArgv();
     callRequest(duration,mode,messageCounter);
 }
 main();
