@@ -4,11 +4,12 @@ var NanoTimer = require('nanotimer');
 var http = require('http');
 var fs = require('fs');
 var argv = require('yargs')
-    .usage('Usage: $0 -d [num] -m [num] -s [num] -a [string]')
-    .demandOption(['d','m'])
-    .argv;;
+  .usage('Usage: $0 -d [num] -m [num] -s [num] -a [string]')
+  .demandOption(['d','m'])
+  .argv;;
 
 const axios = require('axios');
+const util = require('util');
 
 var messageCounter = 0;
 var startSeq,startTime,endTime;
@@ -113,31 +114,56 @@ function PostPoisson(timer){
 function timeout(timer) {
   timer.clearInterval();
   endTime = new Date();
-  log += "end time " + dateFormat(endTime.toISOString(), "yymmddHHMMss.l") + "\r\n" ;
-  log += "end seq <" + messageCounter + ">\r\n";
-  log += "total msg send: " + (messageCounter-startSeq) + "\r\n";
-  log += "total time (sec) : " + ((endTime.getTime() - startTime.getTime())/1000) + "\r\n";
-  log += "avg thruput = " + ((messageCounter-startSeq)/((endTime.getTime() - startTime.getTime())/1000)) + "\r\n";
-  log += "mode : " + (mode >= 0 ? "normal" : "poisson") ;
+  // log += "end time " + dateFormat(endTime.toISOString(), "yymmddHHMMss.l") + "\r\n" ;
+  // log += "end seq <" + messageCounter + ">\r\n";
+  // log += "total msg send: " + (messageCounter-startSeq) + "\r\n";
+  // log += "total time (sec) : " + ((endTime.getTime() - startTime.getTime())/1000) + "\r\n";
+  // log += "avg thruput = " + ((messageCounter-startSeq)/((endTime.getTime() - startTime.getTime())/1000)) + "\r\n";
+  // log += "mode : " + (mode >= 0 ? "normal" : "poisson") ;
   fs.writeFile(dateFormat(startTime.toISOString(), "yymmddHHMMss")+'.txt', log, function (err) {
     if (err) throw err;
   }); 
 }
-function ParseArgv() {
+async function ParseArgv() {
   duration = argv.d;
   mode = argv.m|0;
   startSeq = argv.s|0;
   messageCounter = startSeq;
-  var string = argv.a;
-  address = string.split(",");
+  if (argv.a) {
+    var string = argv.a;
+    address = string.split(",");
+    console.log()
+  } else if (argv.b) {
+    const baseURL = `http://${argv.b}`;
+    const api = '/ip/list';
+    const url = `${baseURL}${api}`;
+
+    let response;
+    try {
+      response = await axios.get(url);
+    } catch (err) {
+      console.error('Error getting IP address list, exit(1)', err);
+      process.exit(1);
+    }
+
+    const ips = response.data.ip;
+
+    address = [];
+    ips.forEach((ip) => {
+      address.push(ip);
+      address.push('8000');
+      address.push(ip);
+      address.push('8000');
+      address.push(ip);
+      address.push('8000');
+    });
+
+    console.log("All IPs are fetched");
+  }
+
+  console.log(`IP address list: ${util.inspect(address)}`);
 }
 
 ParseArgv().then(async () => {
   callRequest(duration, mode, messageCounter);
 });
-
-// function main(){
-//     ParseArgv();
-//     callRequest(duration,mode,messageCounter);
-// }
-// main();
