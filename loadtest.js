@@ -94,7 +94,6 @@ if(_mode == 0){
 
         poisson_time = 0
         timer.setTimeout(PostPoisson, [timer], (poisson_time +'u'));
-
   }
 }
 function PostPoisson(timer){
@@ -157,7 +156,6 @@ async function ParseArgv(){
         let response;
         try {
             response = await axios.get(url);
-            console.log(`IP address list: ${util.inspect(response.data.ip)}`);
         } catch (err) {
             console.error('Error getting IP Address list, exit(1)', err);
             process.exit(1);
@@ -168,6 +166,8 @@ async function ParseArgv(){
             i++;
         }
         address = response.data.ip;
+
+        console.log(`IP address list: ${util.inspect(address)}`);
         console.log("All IPs are fetched");
     }
 }
