@@ -96,7 +96,7 @@ async function calculation(address) {
   // Get each result file from TM nodes
   while (address[index] != null) {
     // var destinationPair = address[index].split(";");
-    const fileName = address[i].split('.').join('_') + '.csv';
+    const fileName = address[index].split('.').join('_') + '.csv';
 
     var filePath = "result/" + fileName;
     var fileData = await readFilePromise(filePath, 'utf8');
