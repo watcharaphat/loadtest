@@ -83,10 +83,12 @@ async function downloadFile(address, fileName) {
 async function getAllFiles(address) {
   var index = 0;
   console.log("Start downloading the remote result files");
-  address.forEach(async (ip) => {
+  // address.forEach(async (ip) => {
+  for (let i = 0; i < address.length; i++) {
+    const ip = address[i];
     console.log(`getting from: ${ip}`);
     await downloadFile(ip, 'result.csv');
-  });
+  // });
   // while (address[index] != null) {
   //   console.log(`getting from: ${address[index]}`);
   //   var destination = address[index].split(";");
