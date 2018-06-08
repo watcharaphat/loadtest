@@ -57,7 +57,7 @@ async function PostRequest() {
   post_req.write(post_data);
   post_req.end();
   // log += msg_date+"," +messageCounter+"," +(endpointType == 0 ? "A" : "I")+"," +index+"," +MSG_SIZE[rand_size][1]+"," + msg + "\r\n";
-  log += Date.now() + ',' + messageCounter + '\n';
+  log += messageCounter + ',' + Date.now() + ',' + MSG_SIZE[rand_size][1] + '\n';
   messageCounter++;
 }
 async function callRequest(_duration,_mode) {
