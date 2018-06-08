@@ -104,17 +104,15 @@ async function calculation(address) {
     const fileData = await readFilePromise(filePath, 'utf8');
     const fileParsed = Papa.parse(fileData).data;
 
-    console.log(b);
-
     const endTransactionData = [];
     fileParsed.forEach((item) => {
       if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
     });
 
     const sum = {
-      sumPropagationTime128: 0,
-      sumPropagationTime512: 0,
-      sumPropagationTime1024: 0,
+      propagationTime128: 0,
+      propagationTime512: 0,
+      propagationTime1024: 0,
     };
 
     let iterration128 = 0;
@@ -126,10 +124,11 @@ async function calculation(address) {
     }
 
     initTransactionData.forEach((request, seq) => {
+      console.log(seq)
       if (endTransactionData[seq]) {
         const startTime = request[0];
         const endTime = endTransactionData[seq];
-        const time = endTime = startTime;
+        const time = endTime - startTime;
 
         switch (request[1]) {
           case '128':
@@ -138,7 +137,7 @@ async function calculation(address) {
             break;
           case '512':
             sum.propagationTime512 += time
-            iteration512++;
+            iterration512++;
             break;
           case '1024':
             sum.propagationTime1024 += time
@@ -154,7 +153,8 @@ async function calculation(address) {
     result.avgPropagationTime512 = sum.propagationTime512 / iterration512;
     result.avgPropagationTime1024 = sum.propagationTime1024 / iterration1024;
 
-    console.log('resule:');
+    console.log('result:');
+    console.log(util.inspect(sum, false, null, true));
     console.log(util.inspect(result, false, null, true));
   }
 
