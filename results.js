@@ -50,11 +50,7 @@ async function run() {
 
     console.log("All IPs are fetched");
   }
-
   console.log(`IP address list: ${util.inspect(address)}`);
-
-
-
 
   await getAllFiles(address); // download all files from webservers of specified IP address
   calculation(address);
@@ -79,9 +75,8 @@ async function downloadFile(address, filename) {
   var response = await axios.get(url);
   var data = response.data;
 
-  var name = "results/" + address.split('.').join("_") + ".csv";
+  var name = "result/" + address.split('.').join("_") + ".csv";
   await writeFile(data, name); // write the datas in a file
-
 }
 
 
@@ -99,7 +94,7 @@ async function calculation(address) {
   console.log("Start calculations");
   var index = 0;
   //Get logs from loadtest.js
-  var loadTestData = await readFilePromise("results/transactionList.csv", 'utf8')
+  var loadTestData = await readFilePromise("result/transactionList.csv", 'utf8')
   var loadTestParsed = Papa.parse(loadTestData).data;
 
 
@@ -107,7 +102,7 @@ async function calculation(address) {
   while (address[index] != null) {
     var destinationPair = address[index].split(";");
 
-    var filePath = "results/" + destinationPair[0] + ".csv";
+    var filePath = "result/" + destinationPair[0] + ".csv";
     var fileData = await readFilePromise(filePath, 'utf8');
     var fileParsed = Papa.parse(fileData).data;
     // compare the two files
