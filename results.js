@@ -102,8 +102,8 @@ async function calculation(address) {
     var fileData = await readFilePromise(filePath, 'utf8');
     var fileParsed = Papa.parse(fileData).data;
 
-    console.log(util.inspect(fileParsed, false, null, true));
-
+    // console.log(util.inspect(fileParsed, false, null, true));
+    console.log(util.inspect(loadTestParsed, false, null, true));
     // compare the two files
     var sumPropagationTime = 0;
 
