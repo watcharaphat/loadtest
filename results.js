@@ -95,9 +95,10 @@ async function calculation(address) {
 
   // Get each result file from TM nodes
   while (address[index] != null) {
-    var destinationPair = address[index].split(";");
+    // var destinationPair = address[index].split(";");
+    const fileName = address[i].split('.').join('_') + '.csv';
 
-    var filePath = "result/" + destinationPair[0] + ".csv";
+    var filePath = "result/" + fileName;
     var fileData = await readFilePromise(filePath, 'utf8');
     var fileParsed = Papa.parse(fileData).data;
 
