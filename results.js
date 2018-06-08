@@ -147,7 +147,7 @@ async function calculation(address) {
 }
 
 function summary(propogationTime) {
-  console.log('\\\nn***** SUMMARY *****\n');
+  console.log('\n\n***** SUMMARY *****\n');
   let max = -Infinity;
   let min = Infinity;
   let sum = 0;
