@@ -135,12 +135,12 @@ async function calculation(address) {
       }
     });
 
-    result.avgPropagationTime128 = sum.propagationTime128 / iterration128;
-    result.avgPropagationTime512 = sum.propagationTime512 / iterration512;
-    result.avgPropagationTime1024 = sum.propagationTime1024 / iterration1024;
+    // result.avgPropagationTime128 = sum.propagationTime128 / iterration128;
+    // result.avgPropagationTime512 = sum.propagationTime512 / iterration512;
+    // result.avgPropagationTime1024 = sum.propagationTime1024 / iterration1024;
 
-    console.log('result:');
-    console.log(util.inspect(result, false, null, true));
+    // console.log('result:');
+    // console.log(util.inspect(result, false, null, true));
   }
 
   summary(propogationTime);
@@ -172,3 +172,4 @@ function summary(propogationTime) {
 }
 
 main();
+
