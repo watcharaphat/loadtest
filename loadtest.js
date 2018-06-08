@@ -35,7 +35,8 @@ async function PostRequest() {
   const msg_date = dateFormat(new Date().toISOString(), "yymmddHHMMss.l");
   const msg = (new Array(MSG_SIZE[rand_size][0]).join( msg_date )).slice(0,MSG_SIZE[rand_size][1]);
   const endpointType = Math.floor(Math.random() * 2); 
-  const index = messageCounter%numberOfNode;
+  const index = messageCounter % numberOfNode;
+  console.log(`index: ${index}`);
   var post_data = JSON.stringify({ message: msg })
   var post_options = {
     host: address[index*2],
@@ -91,6 +92,7 @@ async function callRequest(_duration,_mode) {
     timer.setTimeout(PostPoisson, [timer], (poisson_time +'u'));
   }
 }
+
 function PostPoisson(timer){
   poisson_time = poisson_sleep[messageCounter-startSeq]
   timer.setTimeout(PostPoisson, [timer], (poisson_time +'u'));
@@ -152,13 +154,11 @@ async function ParseArgv() {
     numberOfNode = ips.length;
 
     address = [];
+
     ips.forEach((ip) => {
-      address.push(ip);
+      // address.push(ip);
+      address.push('localhost');
       address.push('8000');
-      // address.push(ip);
-      // address.push('8000');
-      // address.push(ip);
-      // address.push('8000');
     });
 
     console.log("All IPs are fetched");
