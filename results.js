@@ -82,6 +82,8 @@ async function calculation(address) {
     if (item[0] && item[1] && item[2]) initTransactionData[item[0]] = [item[1], item[2]];
   });
 
+  const propogationTime = [];
+
   for (let i = 0; i < address.length; i++) {
     const fileName = address[i].split('.').join('_') + '.csv';
     const filePath = 'result/' + fileName;
@@ -112,6 +114,7 @@ async function calculation(address) {
         const startTime = request[0];
         const endTime = endTransactionData[seq];
         const time = endTime - startTime;
+        propogationTime.push(time);
 
         switch (request[1]) {
           case '128':
@@ -139,6 +142,28 @@ async function calculation(address) {
     console.log('result:');
     console.log(util.inspect(result, false, null, true));
   }
+
+  summary(propogationTime);
+}
+
+function summary(propogationTime) {
+  console.log('***** SUMMARY *****');
+  let max = -Infinity;
+  let min = -Infinity;
+  let sum = 0;
+
+  propogationTime.forEach((time) => {
+    sum += time;
+    max = time > max ? time : max;
+    min = time > min ? min : time;
+  });
+
+  const avg = sum / propogationTime.length;
+
+  console.log('Propagation Time');
+  console.log(`Average: ${avg}`);
+  console.log(`Maximum: ${max} ms`);
+  console.log(`Minimum: ${min} ms`);
 }
 
 main();
