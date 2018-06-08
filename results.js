@@ -72,7 +72,7 @@ async function downloadFile(address, fileName) {
   var response = await axios.get(url);
   var data = response.data;
 
-  console.log(`${fileName}: ${util.inspect(data)}`);
+  console.log(`${fileName}: ${util.inspect(data)}\n********************\n`);
 
   var name = "result/" + address.split('.').join("_") + ".csv";
   // await writeFile(data, name); // write the datas in a file
