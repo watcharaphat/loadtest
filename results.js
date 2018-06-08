@@ -83,6 +83,8 @@ async function calculation(address) {
     if (item[0] && item[1] && item[2]) initTransactionData[item[0]] = [item[1], item[2]];
   });
 
+  const numberOfTransaction = initTransactionData.length;
+
   const propogationTime = [];
   let loss = 0;
 
@@ -146,10 +148,10 @@ async function calculation(address) {
     loss += result.loss;
   }
 
-  summary(propogationTime, loss);
+  summary(propogationTime, loss, numberOfTransaction);
 }
 
-function summary(propogationTime, loss) {
+function summary(propogationTime, loss, N) {
   console.log('\n\n***** SUMMARY *****\n');
   let max = -Infinity;
   let min = Infinity;
@@ -168,7 +170,7 @@ function summary(propogationTime, loss) {
   propogationTime.forEach((time) => std += Math.pow(time - avg, 2));
   std = Math.pow(std / numberOfTransaction, 0.5);
 
-  console.log(`Number of Done Transaction: ${numberOfTransaction / numberOfNode}`);
+  console.log(`Number of Transaction: ${N}`);
   console.log(`loss: ${loss}`);
   console.log('\nPropagation Time');
   console.log(`Average: ${avg} ms`);
