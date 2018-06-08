@@ -93,7 +93,7 @@ async function calculation(address) {
   var loadTestData = await readFilePromise("result/transactionList.csv", 'utf8')
   var loadTestParsed = Papa.parse(loadTestData).data;
 
-  const initTransactionData = {};
+  const initTransactionData = [];
   loadTestParsed.forEach((item) => initTransactionData[item[0]] = [item[1], item[2]]);
 
   // Get each result file from TM nodes
