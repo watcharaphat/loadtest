@@ -108,7 +108,6 @@ async function calculation(address) {
     }
 
     initTransactionData.forEach((request, seq) => {
-      console.log(seq)
       if (endTransactionData[seq]) {
         const startTime = request[0];
         const endTime = endTransactionData[seq];
