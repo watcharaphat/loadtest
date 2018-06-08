@@ -172,4 +172,3 @@ function summary(propogationTime) {
 }
 
 main();
-
