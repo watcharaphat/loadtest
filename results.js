@@ -84,6 +84,7 @@ async function getAllFiles(address) {
   var index = 0;
   console.log("Start downloading the remote result files");
   while (address[index] != null) {
+    console.log(`getting from: ${address[index]}`);
     var destination = address[index].split(";");
     await downloadFile(destination[0], 'result.csv');
     index += 2;
