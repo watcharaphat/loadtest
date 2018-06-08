@@ -109,7 +109,9 @@ function PostPoisson(timer){
     // log += "total time (sec) : " + ((endTime.getTime() - startTime.getTime())/1000) + "\r\n";
     // log += "avg thruput = " + ((messageCounter-startSeq)/((endTime.getTime() - startTime.getTime())/1000)) + "\r\n";
     // log += "mode : " + (mode >= 0 ? "normal" : "poisson") ;
-    fs.writeFile('result/' + dateFormat(startTime.toISOString(), "yymmddHHMMss")+'.txt', log, function (err) {
+    const fileName ="result/transactionList"
+    // fs.writeFile(dateFormat(startTime.toISOString(), "yymmddHHMMss")+'.txt', log, function (err) {
+    fs.writeFile(fileName + '.csv', log, function (err) {
       if (err) throw err;
     }); 
   }
