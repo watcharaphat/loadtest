@@ -99,11 +99,12 @@ async function calculation(address) {
   });
 
   for (let i = 0; i < address.length; i++) {
-    console.log('a');
     const fileName = address[i].split('.').join('_') + '.csv';
     const filePath = 'result/' + fileName;
     const fileData = await readFilePromise(filePath, 'utf8');
     const fileParsed = Papa.parse(fileData).data;
+
+    console.log(b);
 
     const endTransactionData = [];
     fileParsed.forEach((item) => {
