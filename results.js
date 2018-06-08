@@ -94,7 +94,9 @@ async function calculation(address) {
   var loadTestParsed = Papa.parse(loadTestData).data;
 
   const initTransactionData = [];
-  loadTestParsed.forEach((item) => initTransactionData[item[0]] = [item[1], item[2]]);
+  loadTestParsed.forEach((item) => {
+    if (item[0] && item[1] && item[2]) initTransactionData[item[0]] = [item[1], item[2]];
+  });
 
   // Get each result file from TM nodes
   while (address[index] != null) {
