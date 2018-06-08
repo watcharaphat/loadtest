@@ -11,7 +11,6 @@ var argv = require('yargs')
 const axios = require('axios');
 const util = require('util');
 const { writeFile } = require('./util/writeFile.js');
-console.log(writeFile);
 
 var messageCounter = 0;
 var startSeq,startTime,endTime;
@@ -38,7 +37,6 @@ async function PostRequest() {
   const msg = (new Array(MSG_SIZE[rand_size][0]).join( msg_date )).slice(0,MSG_SIZE[rand_size][1]);
   const endpointType = Math.floor(Math.random() * 2); 
   const index = messageCounter % numberOfNode;
-  console.log(`index: ${index}`);
   var post_data = JSON.stringify({ message: msg })
   var post_options = {
     host: address[index*2],
@@ -59,7 +57,7 @@ async function PostRequest() {
   post_req.write(post_data);
   post_req.end();
   // log += msg_date+"," +messageCounter+"," +(endpointType == 0 ? "A" : "I")+"," +index+"," +MSG_SIZE[rand_size][1]+"," + msg + "\r\n";
-  log += Date.now() + ',' + messageCounter + '\r\n';
+  log += Date.now() + ',' + messageCounter + '\n';
   messageCounter++;
 }
 async function callRequest(_duration,_mode) {
