@@ -17,7 +17,7 @@ var startSeq,startTime,endTime;
 var timer = new NanoTimer();
 var duration,mode,address;
 var durationInMilliseconds;
-var log;
+let log = '';
 var poisson_sleep
 var startClock;
 var poisson_time;
