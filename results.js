@@ -11,11 +11,11 @@ var http = require('http');
 var request = require('request');
 var path = require('path');
 let address;
-const getPromise = util.promisify(http.get);
-const getAllFilesPromise = util.promisify(getAllFiles);
 const axios = require('axios');
 const Papa = require('papaparse');
 const csv = require('fast-csv');
+
+const { writeFile } = require('./util/writeFile.js');
 
 async function run() {
   if (argv.a) {
@@ -52,9 +52,8 @@ async function run() {
   console.log(`IP address list: ${util.inspect(address)}`);
 
   await getAllFiles(address); // download all files from webservers of specified IP address
-  calculation(address);
+  // calculation(address);
 }
-
 
 async function writeFile(data, filename) {
   try {
@@ -64,7 +63,6 @@ async function writeFile(data, filename) {
     console.log(err);
   }
 }
-
 
 async function downloadFile(address, filename) {
   // Get the data from url
