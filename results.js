@@ -94,7 +94,7 @@ async function getAllFiles(address) {
   //   var destination = address[index].split(";");
   //   await downloadFile(destination[0], 'result.csv');
   //   index += 2;
-  // }
+  }
 }
 
 async function calculation(address) {
