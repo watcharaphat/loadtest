@@ -156,8 +156,7 @@ async function ParseArgv() {
     address = [];
 
     ips.forEach((ip) => {
-      // address.push(ip);
-      address.push('localhost');
+      address.push(ip);
       address.push('8000');
     });
 
