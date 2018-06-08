@@ -7,6 +7,7 @@ const readFilePromise = util.promisify(fs.readFile);
 let address;
 const axios = require('axios');
 const Papa = require('papaparse');
+let numberOfNode = 0;
 
 const { writeFile } = require('./util/writeFile.js');
 
@@ -167,7 +168,7 @@ function summary(propogationTime, loss) {
   propogationTime.forEach((time) => std += Math.pow(time - avg, 2));
   std = Math.pow(std / numberOfTransaction, 0.5);
 
-  console.log(`Number of Done Transaction: ${numberOfTransaction}`);
+  console.log(`Number of Done Transaction: ${numberOfTransaction / numberOfNode}`);
   console.log(`loss: ${loss}`);
   console.log('\nPropagation Time');
   console.log(`Average: ${avg} ms`);
