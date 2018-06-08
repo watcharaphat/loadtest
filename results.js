@@ -55,22 +55,24 @@ async function run() {
   // calculation(address);
 }
 
-// async function writeFile(data, filename) {
+// async function writeFile(data, fileNam) {
 //   try {
-//     await writeFilePromise(filename, data);
+//     await writeFilePromise(fileName, data);
 //     console.log("Remote result files are saved!");
 //   } catch (err) {
 //     console.log(err);
 //   }
 // }
 
-async function downloadFile(address, filename) {
+async function downloadFile(address, fileName) {
   // Get the data from url
   var data = "";
-  var url = "http://" + address + ":8100/" + filename;
+  var url = "http://" + address + ":8100/" + fileName;
 
   var response = await axios.get(url);
   var data = response.data;
+
+  console.log(`${fileName}: ${util.inspect(data)}`);
 
   var name = "result/" + address.split('.').join("_") + ".csv";
   // await writeFile(data, name); // write the datas in a file
