@@ -147,7 +147,7 @@ async function calculation(address) {
 }
 
 function summary(propogationTime) {
-  console.log('\n***** SUMMARY *****');
+  console.log('\\\nn***** SUMMARY *****\n');
   let max = -Infinity;
   let min = Infinity;
   let sum = 0;
@@ -161,7 +161,7 @@ function summary(propogationTime) {
   const avg = sum / propogationTime.length;
 
   console.log('Propagation Time');
-  console.log(`Average: ${avg}`);
+  console.log(`Average: ${avg} ms`);
   console.log(`Maximum: ${max} ms`);
   console.log(`Minimum: ${min} ms`);
 }
