@@ -126,7 +126,6 @@ async function calculation(address) {
           var propagationTime = fileParsed[j][0] - loadTestParsed[i][0];
           sumPropagationTime += propagationTime;
           iterration++;
-
         }
       }
     }
