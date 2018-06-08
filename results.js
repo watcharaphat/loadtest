@@ -52,7 +52,7 @@ async function run() {
   console.log(`IP address list: ${util.inspect(address)}`);
 
   await getAllFiles(address); // download all files from webservers of specified IP address
-  // calculation(address);
+  calculation(address);
 }
 
 // async function writeFile(data, fileNam) {
@@ -72,28 +72,17 @@ async function downloadFile(address, fileName) {
   var response = await axios.get(url);
   var data = response.data;
 
-  console.log(`${fileName}: ${util.inspect(data)}\n********************\n`);
-
   var name = "result/" + address.split('.').join("_") + ".csv";
   // await writeFile(data, name); // write the datas in a file
   writeFile(name, data);
 }
 
-
 async function getAllFiles(address) {
   var index = 0;
   console.log("Start downloading the remote result files");
-  // address.forEach(async (ip) => {
   for (let i = 0; i < address.length; i++) {
     const ip = address[i];
-    console.log(`getting from: ${ip}`);
     await downloadFile(ip, 'result.csv');
-  // });
-  // while (address[index] != null) {
-  //   console.log(`getting from: ${address[index]}`);
-  //   var destination = address[index].split(";");
-  //   await downloadFile(destination[0], 'result.csv');
-  //   index += 2;
   }
 }
 
@@ -104,7 +93,6 @@ async function calculation(address) {
   var loadTestData = await readFilePromise("result/transactionList.csv", 'utf8')
   var loadTestParsed = Papa.parse(loadTestData).data;
 
-
   // Get each result file from TM nodes
   while (address[index] != null) {
     var destinationPair = address[index].split(";");
@@ -112,6 +100,10 @@ async function calculation(address) {
     var filePath = "result/" + destinationPair[0] + ".csv";
     var fileData = await readFilePromise(filePath, 'utf8');
     var fileParsed = Papa.parse(fileData).data;
+
+    console.log(util.inspect(fileParsed, false, null, true));
+    process.exit(0);
+
     // compare the two files
     var sumPropagationTime = 0;
 
