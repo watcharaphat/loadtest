@@ -139,7 +139,7 @@ async function ParseArgv() {
     numberOfNode = 6;
   } else if (argv.b) {
     const baseURL = `http://${argv.b}`;
-    const api = '/ip/list';
+    const api = '/api-ip/list';
     const url = `${baseURL}${api}`;
 
     let response;
