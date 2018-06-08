@@ -3,7 +3,6 @@ const mkdirp = require('mkdirp');
 
 function writeFile(filepath, data) {
   // Crate all needed directories in filepath
-  console.log(data);
   const splitFilepath = filepath.split('/');
   splitFilepath.pop();
   const dirToCreate = splitFilepath.join('/');
