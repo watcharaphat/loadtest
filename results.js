@@ -8,7 +8,7 @@ const writeFilePromise = util.promisify(fs.writeFile);
 // const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const readline = require('readline');
 var http = require('http');
-var request = require('request');
+// var request = require('request');
 var path = require('path');
 let address;
 const axios = require('axios');
