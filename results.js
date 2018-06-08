@@ -98,6 +98,66 @@ async function calculation(address) {
     if (item[0] && item[1] && item[2]) initTransactionData[item[0]] = [item[1], item[2]];
   });
 
+  for (let i = 0; i < address.length; i++) {
+    const fileName = address[i].split('.').join('_') + '.csv';
+    const filePath = 'result/' + fileName;
+    const fileData = await readFilePromise(filePath, 'utf8');
+    const fileParsed = Papa.parse(fileData).data;
+
+    const endTransactionData = [];
+    fileParsed.forEach((item) => {
+      if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
+    });
+
+    const sum = {
+      sumPropagationTime128: 0,
+      sumPropagationTime512: 0,
+      sumPropagationTime1024: 0,
+    };
+
+    let iterration128 = 0;
+    let iterration512 = 0;
+    let iterration1024 = 0;
+
+    const result = {
+      loss: 0,
+    }
+
+    initTransactionData.forEach((request, seq) => {
+      if (endTransactionData[seq]) {
+        const startTime = request[0];
+        const endTime = endTransactionData[seq];
+        const time = endTime = startTime;
+
+        switch (request[1]) {
+          case '128':
+            sum.propagationTime128 += time
+            iterration128++;
+            break;
+          case '512':
+            sum.propagationTime512 += time
+            iteration512++;
+            break;
+          case '1024':
+            sum.propagationTime1024 += time
+            iterration1024++;
+            break;
+        }
+      } else {
+        result.loss++;
+      }
+    });
+
+    result.avgPropagationTime128 = sum.propagationTime128 / iterration128;
+    result.avgPropagationTime512 = sum.propagationTime512 / iterration512;
+    result.avgPropagationTime1024 = sum.propagationTime1024 / iterration1024;
+
+    console.log('resule:');
+    console.log(util.inspect(result, false, null, true));
+  }
+
+  console.log('\n\n******************************\n\n')
+
   // Get each result file from TM nodes
   while (address[index] != null) {
     // var destinationPair = address[index].split(";");
@@ -108,7 +168,7 @@ async function calculation(address) {
     var fileParsed = Papa.parse(fileData).data;
 
     // console.log(util.inspect(fileParsed, false, null, true));
-    console.log(util.inspect(initTransactionData, false, null, true));
+    // console.log(util.inspect(initTransactionData, false, null, true));
     // compare the two files
     var sumPropagationTime = 0;
 
