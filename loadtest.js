@@ -10,6 +10,8 @@ var argv = require('yargs')
 
 const axios = require('axios');
 const util = require('util');
+const { writeFile } = require('./util/writeFile.js');
+console.log(writeFile);
 
 var messageCounter = 0;
 var startSeq,startTime,endTime;
@@ -109,11 +111,12 @@ function PostPoisson(timer){
     // log += "total time (sec) : " + ((endTime.getTime() - startTime.getTime())/1000) + "\r\n";
     // log += "avg thruput = " + ((messageCounter-startSeq)/((endTime.getTime() - startTime.getTime())/1000)) + "\r\n";
     // log += "mode : " + (mode >= 0 ? "normal" : "poisson") ;
-    const fileName ="result/transactionList"
+    const fileName ="result/transactionList.csv";
     // fs.writeFile(dateFormat(startTime.toISOString(), "yymmddHHMMss")+'.txt', log, function (err) {
-    fs.writeFile(fileName + '.csv', log, function (err) {
-      if (err) throw err;
-    }); 
+    writeFile(fileName, log);
+    // fs.writeFile(fileName + '.csv', log, function (err) {
+    //   if (err) throw err;
+    // }); 
   }
 }
 
@@ -126,9 +129,12 @@ function timeout(timer) {
   // log += "total time (sec) : " + ((endTime.getTime() - startTime.getTime())/1000) + "\r\n";
   // log += "avg thruput = " + ((messageCounter-startSeq)/((endTime.getTime() - startTime.getTime())/1000)) + "\r\n";
   // log += "mode : " + (mode >= 0 ? "normal" : "poisson") ;
-  fs.writeFile(dateFormat(startTime.toISOString(), "yymmddHHMMss")+'.txt', log, function (err) {
-    if (err) throw err;
-  }); 
+  const fileName ="result/transactionList.csv";
+  // fs.writeFile(dateFormat(startTime.toISOString(), "yymmddHHMMss")+'.txt', log, function (err) {
+  writeFile(fileName, log);
+  // fs.writeFile(fileName + '.csv', log, function (err) {
+  //   if (err) throw err;
+  // }); 
 }
 async function ParseArgv() {
   duration = argv.d;
