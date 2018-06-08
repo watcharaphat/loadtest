@@ -55,14 +55,14 @@ async function run() {
   // calculation(address);
 }
 
-async function writeFile(data, filename) {
-  try {
-    await writeFilePromise(filename, data);
-    console.log("Remote result files are saved!");
-  } catch (err) {
-    console.log(err);
-  }
-}
+// async function writeFile(data, filename) {
+//   try {
+//     await writeFilePromise(filename, data);
+//     console.log("Remote result files are saved!");
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
 async function downloadFile(address, filename) {
   // Get the data from url
@@ -73,7 +73,8 @@ async function downloadFile(address, filename) {
   var data = response.data;
 
   var name = "result/" + address.split('.').join("_") + ".csv";
-  await writeFile(data, name); // write the datas in a file
+  // await writeFile(data, name); // write the datas in a file
+  writeFile(name, data);
 }
 
 
