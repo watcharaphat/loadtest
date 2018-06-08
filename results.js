@@ -102,8 +102,7 @@ async function calculation(address) {
     var fileData = await readFilePromise(filePath, 'utf8');
     var fileParsed = Papa.parse(fileData).data;
 
-    console.log(util.inspect(fileParsed, false, null, true));
-    process.exit(0);
+    // console.log(util.inspect(fileParsed, false, null, true));
 
     // compare the two files
     var sumPropagationTime = 0;
@@ -121,23 +120,23 @@ async function calculation(address) {
       for (var j in fileParsed) {
         if (loadTestParsed[i] && fileParsed[j] && loadTestParsed[i][1] == fileParsed[j][1]) {
 
-          if (loadTestParsed[i][4] == 128) {
-            var propagationTime128 = fileParsed[j][0] - loadTestParsed[i][0];
+          if (loadTestParsed[i][2] == 128) {
+            var propagationTime128 = fileParsed[j][1] - loadTestParsed[i][1];
             sumPropagationTime128 += propagationTime128;
             iterration128++;
           }
-          else if (loadTestParsed[i][4] == 512) {
-            var propagationTime512 = fileParsed[j][0] - loadTestParsed[i][0];
+          else if (loadTestParsed[i][2] == 512) {
+            var propagationTime512 = fileParsed[j][1] - loadTestParsed[i][1];
             sumPropagationTime512 += propagationTime512;
             iterration512++;
           }
-          if (loadTestParsed[i][4] == 1024) {
-            var propagationTime1024 = fileParsed[j][0] - loadTestParsed[i][0];
+          if (loadTestParsed[i][2] == 1024) {
+            var propagationTime1024 = fileParsed[j][1] - loadTestParsed[i][1];
             sumPropagationTime1024 += propagationTime1024;
             iterration1024++;
           }
 
-          var propagationTime = fileParsed[j][0] - loadTestParsed[i][0];
+          var propagationTime = fileParsed[j][1] - loadTestParsed[i][1];
           sumPropagationTime += propagationTime;
           iterration++;
         }
@@ -146,10 +145,10 @@ async function calculation(address) {
 
     var avgPropagationTime = sumPropagationTime / iterration;
 
-    console.log("Average propagation time of node  " + destinationPair[0] + " = " + avgPropagationTime)
-    console.log("Average propagation time of 128bits paquets of node  " + destinationPair[0] + " = " + (sumPropagationTime128 / iterration128))
-    console.log("Average propagation time of 512bits paquets of node  " + destinationPair[0] + " = " + (sumPropagationTime512 / iterration512))
-    console.log("Average propagation time of 1024bits paquets of node  " + destinationPair[0] + " = " + (sumPropagationTime1024 / iterration1024))
+    console.log("Average propagation time of node " + address[index] + " = " + avgPropagationTime)
+    console.log("Average propagation time of  128bits paquets of node " + address[index] + " = " + (sumPropagationTime128 / iterration128))
+    console.log("Average propagation time of  512bits paquets of node " + address[index] + " = " + (sumPropagationTime512 / iterration512))
+    console.log("Average propagation time of 1024bits paquets of node " + address[index] + " = " + (sumPropagationTime1024 / iterration1024))
 
     index += 1;
   }
