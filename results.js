@@ -45,7 +45,6 @@ async function run() {
 
     ips.forEach((ip) => {
       address.push(ip);
-      address.push('8100');
     });
 
     console.log("All IPs are fetched");
