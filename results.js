@@ -160,10 +160,15 @@ function summary(propogationTime) {
 
   const avg = sum / propogationTime.length;
 
+  let std = 0;
+  propogationTime.forEach((time) => std += Math.pow(time - avg, 2));
+  std = Math.pow(std / propogationTime.length, 0.5);
+
   console.log('Propagation Time');
   console.log(`Average: ${avg} ms`);
   console.log(`Maximum: ${max} ms`);
   console.log(`Minimum: ${min} ms`);
+  console.log(`Standard Deviation: ${std} ms`);
 }
 
 main();
