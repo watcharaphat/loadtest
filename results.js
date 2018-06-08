@@ -93,6 +93,9 @@ async function calculation(address) {
   var loadTestData = await readFilePromise("result/transactionList.csv", 'utf8')
   var loadTestParsed = Papa.parse(loadTestData).data;
 
+  const initTransactionData = {};
+  loadTestParsed.forEach((item) => initTransactionData[item[0]] = [item[1], item[2]]);
+
   // Get each result file from TM nodes
   while (address[index] != null) {
     // var destinationPair = address[index].split(";");
@@ -103,7 +106,7 @@ async function calculation(address) {
     var fileParsed = Papa.parse(fileData).data;
 
     // console.log(util.inspect(fileParsed, false, null, true));
-    console.log(util.inspect(loadTestParsed, false, null, true));
+    console.log(util.inspect(initTransactionData, false, null, true));
     // compare the two files
     var sumPropagationTime = 0;
 
