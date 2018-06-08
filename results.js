@@ -23,20 +23,39 @@ async function run() {
     fs.readFile(string, 'utf8', function (err, file) {
       if (err) throw err;
       address = file.split(";");
-      console.log("All IPs are fetched");
+      numberOfNode = address.length / 2;
     });
-  } else {
-    var api_url = 'http://api.watcharaphat.com/ip/list';
-    var response = await axios.get(api_url);
-    var i = 0;
-    while (response.data.ip[i]) {
-      response.data.ip[i] = response.data.ip[i] + ";8000";
-      i++;
-    }
-    address = response.data.ip;
-    console.log("All IPs are fetched");
+  } else if (argv.b) {
+    const baseURL = `http://${argv.b}`;
+    const api = '/abci-ip/list';
+    const url = `${baseURL}${api}`;
 
+    let response;
+    try {
+      response = await axios.get(url);
+    } catch (err) {
+      console.error('Error getting IP address list, exit(1)', err);
+      process.exit(1);
+    }
+
+    const ips = response.data.ip;
+    numberOfNode = ips.length;
+
+    address = [];
+
+    ips.forEach((ip) => {
+      address.push(ip);
+      address.push('8100');
+    });
+
+    console.log("All IPs are fetched");
   }
+
+  console.log(`IP address list: ${util.inspect(address)}`);
+
+
+
+
   await getAllFiles(address); // download all files from webservers of specified IP address
   calculation(address);
 }
