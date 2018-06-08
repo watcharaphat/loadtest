@@ -43,7 +43,7 @@ async function main() {
 
     console.log("All IPs are fetched");
   }
-  console.log(`IP address list: ${util.inspect(address)}`);
+  // console.log(`IP address list: ${util.inspect(address)}`);
 
   await getAllFiles(address); // download all files from webservers of specified IP address
   calculation(address);
