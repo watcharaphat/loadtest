@@ -187,10 +187,13 @@ function summary(propagationTime, loss, N) {
     
     firstCommit = firstCommit > timeFirstCommit ? timeFirstCommit : firstCommit;
 
+    const timeToPropagate = timePropagation - timeFirstCommit;
+
     result[i] = {
       seq: i,
       timeFirstCommit,
       timePropagation,
+      timeToPropagate,
     };
   }
 
