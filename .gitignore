@@ -1,3 +1,5 @@
 node_modules/
 result/
 18*.txt
+TransactionResult.csv
+
