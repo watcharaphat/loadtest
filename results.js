@@ -195,7 +195,6 @@ function summary(propagationTime, loss, N) {
   }
 
   const resultCSV = Papa.unparse(result);
-  console.log(util.inspect(resultCSV, false, null, true));
   writeFile('eiei.csv', resultCSV);
 
   console.log(`MAX: ${max}`);
