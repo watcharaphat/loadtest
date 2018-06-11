@@ -107,7 +107,6 @@ async function calculation(address) {
 
     const fpLength = fileParsed.length;
     for (let i = fpLength - numberOfTransaction; i < fileParsed.length; i++) {
-      console.log(`i: ${i}`);
       const row = fileParsed[i];
 
       if (row[0] && row[1]) endTransactionData[row[0]] = row[1];
@@ -190,9 +189,12 @@ function summary(propagationTime, loss, N) {
     };
   }
 
-  for (let i = 0; i < result.length; i++) {
-    console.log(`${i}, min: ${result[i].timeFirstAppear}, max: ${result[i].timeDone}`);
-  }
+  // for (let i = 0; i < result.length; i++) {
+  //   console.log(`${i}, min: ${result[i].timeFirstAppear}, max: ${result[i].timeDone}`);
+  // }
+
+  const resultCSV = Papa.unparse(result);
+  console.log(util.inspect(resultCSV, false, null, true));
 
   console.log(`MAX: ${max}`);
   console.log(`MIN: ${min}`);
