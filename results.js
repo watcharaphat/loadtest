@@ -41,7 +41,7 @@ async function main() {
       address.push(ip);
     });
 
-    console.log("All IPs are fetched");
+    // console.log("All IPs are fetched");
   }
   // console.log(`IP address list: ${util.inspect(address)}`);
 
@@ -64,7 +64,7 @@ async function downloadFile(address, fileName) {
 
 async function getAllFiles(address) {
   var index = 0;
-  console.log("Start downloading the remote result files");
+  // console.log("Start downloading the remote result files");
   for (let i = 0; i < address.length; i++) {
     const ip = address[i];
     await downloadFile(ip, 'result.csv');
@@ -72,7 +72,7 @@ async function getAllFiles(address) {
 }
 
 async function calculation(address) {
-  console.log("Start calculations");
+  // console.log("Start calculations");
   var index = 0;
   //Get logs from loadtest.js
   var loadTestData = await readFilePromise("result/transactionList.csv", 'utf8')
@@ -94,10 +94,17 @@ async function calculation(address) {
     const fileData = await readFilePromise(filePath, 'utf8');
     const fileParsed = Papa.parse(fileData).data;
 
-    const endTransactionData = [];
-    fileParsed.forEach((item) => {
+    // const endTransactionData = [];
+    // fileParsed.forEach((item) => {
+    //   if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
+    // });
+
+    const fpLength = fileParsed.length;
+    for (let i = fpLength - numberOfTransaction; i < fileParsed.length; i++) {
+      const row = fileParsed[i];
+
       if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
-    });
+    }
 
     const sum = {
       propagationTime128: 0,
