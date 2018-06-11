@@ -184,6 +184,7 @@ function summary(propagationTime, loss, N) {
     min = timeFirstAppear > min ? min : timeFirstAppear;
 
     result[i] = {
+      seq: i,
       timeFirstAppear,
       timeDone,
     };
