@@ -171,6 +171,9 @@ function summary(propagationTime, loss, N) {
   let min = Infinity;
   let firstCommit = Infinity;
 
+  const transactionTimeArray = [];
+  let avgTransactionTime = [];
+
   const timeToPropagateArray = [];
   let maxTimeToPropagate = -Infinity;
   let minTimeToPropagete = Infinity;
@@ -189,6 +192,8 @@ function summary(propagationTime, loss, N) {
 
     max = timePropagation > max ? timePropagation : max;
     min = timePropagation > min ? min : timePropagation;
+    transactionTimeArray.push(timePropagation);
+    avgTransactionTime += timePropagation;
     
     firstCommit = firstCommit > timeFirstCommit ? timeFirstCommit : firstCommit;
 
@@ -206,6 +211,7 @@ function summary(propagationTime, loss, N) {
     };
   }
 
+  avgTransactionTime /= transactionTimeArray.length;
   avgTimeToPropagate /= timeToPropagateArray.length;
 
   // log result for each transaction
@@ -220,6 +226,7 @@ function summary(propagationTime, loss, N) {
   console.log(`Number of Transaction: ${N}`);
   console.log(`loss: ${loss}`);
   console.log('\nTransaction Time:');
+  console.log(`Average: ${avgTransactionTime}`);
   console.log(`Maximum: ${max} ms`);
   console.log(`Minimum: ${min} ms`);
   console.log(`Fist commit takes: ${firstCommit} ms`);
