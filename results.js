@@ -186,7 +186,7 @@ function summary(propagationTime, loss, N) {
   }
 
   for (let i = 0; i < result.length; i++) {
-    console.log(`${i}, min: ${timeFirstAppear}, max: ${timeDone}`);
+    console.log(`${i}, min: ${result[i].timeFirstAppear}, max: ${result[i].timeDone}`);
   }
 
   console.log(`MAX: ${max}`);
