@@ -195,7 +195,7 @@ function summary(propagationTime, loss, N) {
   }
 
   const resultCSV = Papa.unparse(result);
-  writeFile('eiei.csv', resultCSV);
+  writeFile('TransactionResult.csv', resultCSV);
 
   console.log(`MAX: ${max}`);
   console.log(`MIN: ${min}`);
