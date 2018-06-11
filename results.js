@@ -172,7 +172,7 @@ function summary(propagationTime, loss, N) {
   let firstCommit = Infinity;
 
   const transactionTimeArray = [];
-  let avgTransactionTime = [];
+  let avgTransactionTime = 0;
 
   const timeToPropagateArray = [];
   let maxTimeToPropagate = -Infinity;
@@ -211,7 +211,7 @@ function summary(propagationTime, loss, N) {
     };
   }
 
-  // avgTransactionTime /= transactionTimeArray.length;
+  avgTransactionTime /= transactionTimeArray.length;
   avgTimeToPropagate /= timeToPropagateArray.length;
 
   // log result for each transaction
