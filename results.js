@@ -169,36 +169,46 @@ function summary(propagationTime, loss, N) {
 
   let max = -Infinity;
   let min = Infinity;
+  let firstCommit = Infinity;
+
   for (let i = 0; i < propagationTime.length; i++) {
-    let timeDone = -Infinity;
-    let timeFirstAppear = Infinity;
+    let timePropagation = -Infinity;
+    let timeFirstCommit = Infinity;
     for (let j = 0; j < propagationTime[i].length; j++) {
       const time = propagationTime[i][j];
       if (!time) continue;
 
-      timeDone = time > timeDone ? time : timeDone;
-      timeFirstAppear = time > timeFirstAppear ? timeFirstAppear : time;
+      timePropagation = time > timePropagation ? time : timePropagation;
+      timeFirstCommit = time > timeFirstCommit ? timeFirstCommit : time;
     }
 
-    max = timeDone > max ? timeDone : max;
-    min = timeFirstAppear > min ? min : timeFirstAppear;
+    max = timePropagation > max ? timePropagation : max;
+    min = timePropagation > min ? min : timePropagation;
+    
+    firstCommit = firstCommit > timeFirstCommit ? timeFirstCommit : firstCommit;
 
     result[i] = {
       seq: i,
-      timeFirstAppear,
-      timeDone,
+      timeFirstCommit,
+      timePropagation,
     };
   }
 
-  for (let i = 0; i < result.length; i++) {
-    console.log(`${i}, min: ${result[i].timeFirstAppear}, max: ${result[i].timeDone}`);
-  }
+  // log result for each transaction
+  // for (let i = 0; i < result.length; i++) {
+  //   console.log(`${i}, min: ${result[i].timeFirstCommit}, max: ${result[i].timePropagation}`);
+  // }
 
   const resultCSV = Papa.unparse(result);
   writeFile('TransactionResult.csv', resultCSV);
 
-  console.log(`MAX: ${max}`);
-  console.log(`MIN: ${min}`);
+  console.log('\n***** SUMMARY *****\n');
+  console.log(`Number of Transaction: ${N}`);
+  console.log(`loss: ${loss}`);
+  console.log('\nPropagation Time');
+  console.log(`Maximum: ${max} ms`);
+  console.log(`Minimum: ${min} ms`);
+  console.log(`Fist commit in: ${firstCommit} ms`);
 
   // console.log('\n***** SUMMARY *****\n');
   // let max = -Infinity;
