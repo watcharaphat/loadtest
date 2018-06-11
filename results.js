@@ -101,8 +101,13 @@ async function calculation(address) {
     //   if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
     // });
 
+    if (!fileParsed[fileParsed.length - 1][0] && !fileParsed[fileParsed.length - 1][1]) {
+      fileParsed.pop();
+    }
+
     const fpLength = fileParsed.length;
-    for (let i = fpLength - numberOfTransaction - 1; i < fileParsed.length; i++) {
+    for (let i = fpLength - numberOfTransaction; i < fileParsed.length; i++) {
+      console.log(`i: ${i}`);
       const row = fileParsed[i];
 
       if (row[0] && row[1]) endTransactionData[row[0]] = row[1];
