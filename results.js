@@ -189,12 +189,13 @@ function summary(propagationTime, loss, N) {
     };
   }
 
-  // for (let i = 0; i < result.length; i++) {
-  //   console.log(`${i}, min: ${result[i].timeFirstAppear}, max: ${result[i].timeDone}`);
-  // }
+  for (let i = 0; i < result.length; i++) {
+    console.log(`${i}, min: ${result[i].timeFirstAppear}, max: ${result[i].timeDone}`);
+  }
 
   const resultCSV = Papa.unparse(result);
   console.log(util.inspect(resultCSV, false, null, true));
+  writeFile('eiei.csv', resultCSV);
 
   console.log(`MAX: ${max}`);
   console.log(`MIN: ${min}`);
