@@ -206,7 +206,7 @@ function summary(propagationTime, loss, N) {
     };
   }
 
-  avgTimeToPropagate = avgTimeToPropagete / timeToPropagateArray.lenght;
+  avgTimeToPropagate = avgTimeToPropagate / timeToPropagateArray.lenght;
 
   // log result for each transaction
   // for (let i = 0; i < result.length; i++) {
