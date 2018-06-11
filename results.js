@@ -94,7 +94,7 @@ async function calculation(address) {
     const fileData = await readFilePromise(filePath, 'utf8');
     const fileParsed = Papa.parse(fileData).data;
 
-    // const endTransactionData = [];
+    const endTransactionData = [];
     // fileParsed.forEach((item) => {
     //   if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
     // });
