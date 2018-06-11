@@ -206,7 +206,7 @@ function summary(propagationTime, loss, N) {
     };
   }
 
-  avgTimeToPropagate = avgTimeToPropagate / timeToPropagateArray.lenght;
+  avgTimeToPropagate /= timeToPropagateArray.length;
 
   // log result for each transaction
   // for (let i = 0; i < result.length; i++) {
@@ -222,11 +222,11 @@ function summary(propagationTime, loss, N) {
   console.log('\nTransaction Time:');
   console.log(`Maximum: ${max} ms`);
   console.log(`Minimum: ${min} ms`);
-  console.log(`Fist commit in: ${firstCommit} ms`);
+  console.log(`Fist commit takes: ${firstCommit} ms`);
   console.log('\nPropagation Time:');
-  console.log(`Average: ${avgTimeToPropagate}`);
-  console.log(`Maximum: ${maxTimeToPropagate}`);
-  console.log(`Minimum: ${minTimeToPropagete}`);
+  console.log(`Average: ${avgTimeToPropagate} ms`);
+  console.log(`Maximum: ${maxTimeToPropagate} ms`);
+  console.log(`Minimum: ${minTimeToPropagete} ms`);
 
   // console.log('\n***** SUMMARY *****\n');
   // let max = -Infinity;
