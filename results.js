@@ -85,8 +85,8 @@ async function calculation(address) {
 
   const numberOfTransaction = initTransactionData.length;
 
-  const propogationTime = [];
-  for (let i = 0; i < numberOfTransaction; i++) propogationTime[i] = [];
+  const propagationTime = [];
+  for (let i = 0; i < numberOfTransaction; i++) propagationTime[i] = [];
 
   let loss = 0;
 
@@ -127,7 +127,7 @@ async function calculation(address) {
         const startTime = request[0];
         const endTime = endTransactionData[seq];
         const time = endTime - startTime;
-        propogationTime[seq].push(time);
+        propagationTime[seq].push(time);
 
         switch (request[1]) {
           case '128':
@@ -157,18 +157,18 @@ async function calculation(address) {
     loss += result.loss;
   }
 
-  summary(propogationTime, loss, numberOfTransaction);
+  summary(propagationTime, loss, numberOfTransaction);
 }
 
-function summary(propogationTime, loss, N) {
+function summary(propagationTime, loss, N) {
   const result = [];
 
   let max = -Infinity;
   let min = Infinity;
-  for (let i = 0; i < propogationTime.length; i++) {
+  for (let i = 0; i < propagationTime.length; i++) {
     let timeDone = -Infinity;
     let timeFirstAppear = Infinity;
-    for (let j = 0; j < propogationTime[i].length; j++) {
+    for (let j = 0; j < propagationTime[i].length; j++) {
       const time = propagationTime[i][j];
       if (!time) continue;
 
@@ -196,9 +196,9 @@ function summary(propogationTime, loss, N) {
   // let max = -Infinity;
   // let min = Infinity;
   // let sum = 0;
-  // const numberOfTransaction = propogationTime.length
+  // const numberOfTransaction = propagationTime.length
 
-  // propogationTime.forEach((time) => {
+  // propagationTime.forEach((time) => {
   //   sum += time;
   //   max = time > max ? time : max;
   //   min = time > min ? min : time;
@@ -207,7 +207,7 @@ function summary(propogationTime, loss, N) {
   // const avg = sum / numberOfTransaction;
 
   // let std = 0;
-  // propogationTime.forEach((time) => std += Math.pow(time - avg, 2));
+  // propagationTime.forEach((time) => std += Math.pow(time - avg, 2));
   // std = Math.pow(std / numberOfTransaction, 0.5);
 
   // console.log(`Number of Transaction: ${N}`);
