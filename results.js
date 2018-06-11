@@ -103,7 +103,7 @@ async function calculation(address) {
     for (let i = fpLength - numberOfTransaction; i < fileParsed.length; i++) {
       const row = fileParsed[i];
 
-      if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
+      if (row[0] && row[1]) endTransactionData[row[0]] = row[1];
     }
 
     const sum = {
