@@ -211,7 +211,7 @@ function summary(propagationTime, loss, N) {
     };
   }
 
-  avgTransactionTime /= transactionTimeArray.length;
+  // avgTransactionTime /= transactionTimeArray.length;
   avgTimeToPropagate /= timeToPropagateArray.length;
 
   // log result for each transaction
