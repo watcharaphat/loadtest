@@ -218,7 +218,17 @@ function summary(transactionTimeList, loss, N) {
 
     const timeToPropagate = timeForTransaction - timeToCommit;
     propagationTime.data.push(timeToPropagate);
+
+    result[i] = {
+      seq: i,
+      timeToCommit,
+      timeForTransaction,
+      timeToPropagate,
+    };
   }
+
+  const resultCSV = Papa.unparse(result);
+  writeFile('TransactionResult.csv', resultCSV);
 
   getSummaryStat(commitTime);
   getSummaryStat(transactionTime);
