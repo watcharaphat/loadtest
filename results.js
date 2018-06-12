@@ -161,8 +161,10 @@ async function calculation(address) {
   summary(transactionTime, loss, numberOfTransaction);
 }
 
-function summary(propagationTime, loss, N) {
+function summary(transactionTimeList, loss, N) {
   const result = [];
+
+  
 
   let max = -Infinity;
   let min = Infinity;
@@ -176,11 +178,11 @@ function summary(propagationTime, loss, N) {
   let minTimeToPropagete = Infinity;
   let avgTimeToPropagate = 0;
 
-  for (let i = 0; i < propagationTime.length; i++) {
+  for (let i = 0; i < transactionTimeList.length; i++) {
     let timePropagation = -Infinity;
     let timeFirstCommit = Infinity;
-    for (let j = 0; j < propagationTime[i].length; j++) {
-      const time = propagationTime[i][j];
+    for (let j = 0; j < transactionTimeList[i].length; j++) {
+      const time = transactionTimeList[i][j];
       if (!time) continue;
 
       timePropagation = time > timePropagation ? time : timePropagation;
@@ -231,32 +233,6 @@ function summary(propagationTime, loss, N) {
   console.log(`Average: ${avgTimeToPropagate} ms`);
   console.log(`Maximum: ${maxTimeToPropagate} ms`);
   console.log(`Minimum: ${minTimeToPropagete} ms`);
-
-  // console.log('\n***** SUMMARY *****\n');
-  // let max = -Infinity;
-  // let min = Infinity;
-  // let sum = 0;
-  // const numberOfTransaction = propagationTime.length
-
-  // propagationTime.forEach((time) => {
-  //   sum += time;
-  //   max = time > max ? time : max;
-  //   min = time > min ? min : time;
-  // });
-
-  // const avg = sum / numberOfTransaction;
-
-  // let std = 0;
-  // propagationTime.forEach((time) => std += Math.pow(time - avg, 2));
-  // std = Math.pow(std / numberOfTransaction, 0.5);
-
-  // console.log(`Number of Transaction: ${N}`);
-  // console.log(`loss: ${loss}`);
-  // console.log('\nPropagation Time');
-  // console.log(`Average: ${avg} ms`);
-  // console.log(`Maximum: ${max} ms`);
-  // console.log(`Minimum: ${min} ms`);
-  // console.log(`Standard Deviation: ${std} ms`);
 }
 
 main();
