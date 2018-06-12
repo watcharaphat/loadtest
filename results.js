@@ -241,9 +241,9 @@ function summary(transactionTimeList, loss, N) {
     let avgString = `${stat.avg} ms`;
 
     if (stat.max > aMin) {
-      const minMinute = stat.min / aMin;
-      const maxMinute = stat.max / aMin;
-      const avgMinute = stat.avg / aMin;
+      const minMinute = (stat.min / aMin).toFixed(2);
+      const maxMinute = (stat.max / aMin).toFixed(2);
+      const avgMinute = (stat.avg / aMin).toFixed(2);
 
       minString = `${minString} (${minMinute} mins)`;
       maxString = `${maxString} (${maxMinute} mins)`;
