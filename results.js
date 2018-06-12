@@ -85,8 +85,8 @@ async function calculation(address) {
 
   const numberOfTransaction = initTransactionData.length;
 
-  const propagationTime = [];
-  for (let i = 0; i < numberOfTransaction; i++) propagationTime[i] = [];
+  const transactionTime = [];
+  for (let i = 0; i < numberOfTransaction; i++) transactionTime[i] = [];
 
   let loss = 0;
 
@@ -97,9 +97,6 @@ async function calculation(address) {
     const fileParsed = Papa.parse(fileData).data;
 
     const endTransactionData = [];
-    // fileParsed.forEach((item) => {
-    //   if (item[0] && item[1]) endTransactionData[item[0]] = item[1];
-    // });
 
     if (!fileParsed[fileParsed.length - 1][0] && !fileParsed[fileParsed.length - 1][1]) {
       fileParsed.pop();
@@ -131,7 +128,7 @@ async function calculation(address) {
         const startTime = request[0];
         const endTime = endTransactionData[seq];
         const time = endTime - startTime;
-        propagationTime[seq].push(time);
+        transactionTime[seq].push(time);
 
         switch (request[1]) {
           case '128':
@@ -161,7 +158,7 @@ async function calculation(address) {
     loss += result.loss;
   }
 
-  summary(propagationTime, loss, numberOfTransaction);
+  summary(transactionTime, loss, numberOfTransaction);
 }
 
 function summary(propagationTime, loss, N) {
@@ -226,7 +223,7 @@ function summary(propagationTime, loss, N) {
   console.log(`Number of Transaction: ${N}`);
   console.log(`loss: ${loss}`);
   console.log('\nTransaction Time:');
-  console.log(`Average: ${avgTransactionTime}`);
+  console.log(`Average: ${avgTransactionTime} ms`);
   console.log(`Maximum: ${max} ms`);
   console.log(`Minimum: ${min} ms`);
   console.log(`Fist commit takes: ${firstCommit} ms`);
