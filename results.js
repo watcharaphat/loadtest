@@ -224,6 +224,35 @@ function summary(transactionTimeList, loss, N) {
   getSummaryStat(transactionTime);
   getSummaryStat(propagationTime);
 
+  const statReport = (message, stat) => {
+    const aMin = 60000;
+    let minString = stat.min.toString();
+    let maxString = stat.max.toString();
+    let avgString = stat.avg.toString();
+
+    if (stat.max > aMin) {
+      const minMinute = stat.min / aMin;
+      const maxMinute = stat.max / aMin;
+      const avgMinute = stat.avg / aMin;
+
+      minString = `${minString} ms (${minMinute} mins)`;
+      maxString = `${maxString} ms (${maxMinute} mins)`;
+      avgString = `${avgString} ms (${avgMinute} mins)`;
+    }
+
+    console.log(`\n${message}:`);
+    console.log(`Minimum: ${minString}`);
+    console.log(`Maximum: ${maxString}`);
+    console.log(`Average: ${avgString}`);
+  };
+
+  console.log('\n***** SUMMARY *****\n');
+  console.log(`Number of Transaction: ${N}`);
+  console.log(`loss: ${loss}`);
+  statReport(transactionTime);
+  statReport(commitTime);
+  statReport(propagationTime);
+
   /* old methods */
   /*
   let max = -Infinity;
