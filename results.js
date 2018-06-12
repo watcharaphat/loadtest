@@ -249,9 +249,9 @@ function summary(transactionTimeList, loss, N) {
   console.log('\n***** SUMMARY *****\n');
   console.log(`Number of Transaction: ${N}`);
   console.log(`loss: ${loss}`);
-  statReport(transactionTime);
-  statReport(commitTime);
-  statReport(propagationTime);
+  statReport('Transaction Time', transactionTime);
+  statReport('Commit Time', commitTime);
+  statReport('Propagation Time', propagationTime);
 
   /* old methods */
   /*
