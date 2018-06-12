@@ -221,8 +221,8 @@ function summary(transactionTimeList, loss, N) {
 
     result[i] = {
       seq: i,
-      timeToCommit,
       timeForTransaction,
+      timeToCommit,
       timeToPropagate,
     };
   }
