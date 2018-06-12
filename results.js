@@ -226,18 +226,18 @@ function summary(transactionTimeList, loss, N) {
 
   const statReport = (message, stat) => {
     const aMin = 60000;
-    let minString = stat.min.toString();
-    let maxString = stat.max.toString();
-    let avgString = stat.avg.toString();
+    let minString = `${stat.min} ms`;
+    let maxString = `${stat.max} ms`;
+    let avgString = `${stat.avg} ms`;
 
     if (stat.max > aMin) {
       const minMinute = stat.min / aMin;
       const maxMinute = stat.max / aMin;
       const avgMinute = stat.avg / aMin;
 
-      minString = `${minString} ms (${minMinute} mins)`;
-      maxString = `${maxString} ms (${maxMinute} mins)`;
-      avgString = `${avgString} ms (${avgMinute} mins)`;
+      minString = `${minString} (${minMinute} mins)`;
+      maxString = `${maxString} (${maxMinute} mins)`;
+      avgString = `${avgString} (${avgMinute} mins)`;
     }
 
     console.log(`\n${message}:`);
