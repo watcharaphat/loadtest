@@ -246,78 +246,11 @@ function summary(transactionTimeList, loss, N) {
     console.log(`Average: ${avgString}`);
   };
 
-  console.log('\n***** SUMMARY *****\n');
   console.log(`Number of Transaction: ${N}`);
   console.log(`loss: ${loss}`);
   statReport('Transaction Time', transactionTime);
   statReport('Commit Time', commitTime);
   statReport('Propagation Time', propagationTime);
-
-  /* old methods */
-  /*
-  let max = -Infinity;
-  let min = Infinity;
-  let firstCommit = Infinity;
-
-  const transactionTimeArray = [];
-  let avgTransactionTime = 0;
-
-  const timeToPropagateArray = [];
-  let maxTimeToPropagate = -Infinity;
-  let minTimeToPropagete = Infinity;
-  let avgTimeToPropagate = 0;
-
-  for (let i = 0; i < transactionTimeList.length; i++) {
-    let timePropagation = -Infinity;
-    let timeFirstCommit = Infinity;
-    for (let j = 0; j < transactionTimeList[i].length; j++) {
-      const time = transactionTimeList[i][j];
-      if (!time) continue;
-
-      timePropagation = time > timePropagation ? time : timePropagation;
-      timeFirstCommit = time > timeFirstCommit ? timeFirstCommit : time;
-    }
-
-    max = timePropagation > max ? timePropagation : max;
-    min = timePropagation > min ? min : timePropagation;
-    transactionTimeArray.push(timePropagation);
-    avgTransactionTime += timePropagation;
-    
-    firstCommit = firstCommit > timeFirstCommit ? timeFirstCommit : firstCommit;
-
-    const timeToPropagate = timePropagation - timeFirstCommit;
-    timeToPropagateArray.push(timeToPropagate);
-    maxTimeToPropagate = timeToPropagate > maxTimeToPropagate ? timeToPropagate : maxTimeToPropagate;
-    minTimeToPropagete = timeToPropagate > minTimeToPropagete ? minTimeToPropagete : timeToPropagate;
-    avgTimeToPropagate += timeToPropagate;
-
-    result[i] = {
-      seq: i,
-      timeFirstCommit,
-      timePropagation,
-      timeToPropagate,
-    };
-  }
-
-  avgTransactionTime /= transactionTimeArray.length;
-  avgTimeToPropagate /= timeToPropagateArray.length;
-
-  const resultCSV = Papa.unparse(result);
-  writeFile('TransactionResult.csv', resultCSV);
-
-  console.log('\n***** SUMMARY *****\n');
-  console.log(`Number of Transaction: ${N}`);
-  console.log(`loss: ${loss}`);
-  console.log('\nTransaction Time:');
-  console.log(`Average: ${avgTransactionTime} ms`);
-  console.log(`Maximum: ${max} ms`);
-  console.log(`Minimum: ${min} ms`);
-  console.log(`Fist commit takes: ${firstCommit} ms`);
-  console.log('\nPropagation Time:');
-  console.log(`Average: ${avgTimeToPropagate} ms`);
-  console.log(`Maximum: ${maxTimeToPropagate} ms`);
-  console.log(`Minimum: ${minTimeToPropagete} ms`);
-  */
 }
 
 main();
