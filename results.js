@@ -80,8 +80,7 @@ async function getAllFiles(address) {
 }
 
 async function calculation(address) {
-  // console.log("Start calculations");
-  var index = 0;
+  console.log("Start calculations");
   //Get logs from loadtest.js
   var loadTestData = await readFilePromise("result/transactionList.csv", 'utf8')
   var loadTestParsed = Papa.parse(loadTestData).data;
