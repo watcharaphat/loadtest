@@ -118,6 +118,7 @@ async function calculation(address) {
     const fpLength = fileParsed.length;
     for (let i = fpLength - numberOfTransaction; i < fileParsed.length; i++) {
       const row = fileParsed[i];
+      if (!row) continue;
 
       if (row[0] && row[1]) endTransactionData[row[0]] = row[1];
     }
