@@ -169,7 +169,7 @@ async function ParseArgv() {
     console.log("All IPs are fetched");
   }
 
-  console.log(`IP address list: ${util.inspect(address)}`);
+  // console.log(`IP address list: ${util.inspect(address)}`);
 }
 
 ParseArgv().then(async () => {
