@@ -61,7 +61,8 @@ async function downloadFile(address, fileName) {
     response = await axios.get(url);
     data = response.data;
   } catch (err) {
-    console.error('Error getting result.csv', err);
+    console.error(`Error GET ${url}`);
+    return;
   }
 
   var name = "result/" + address.split('.').join("_") + ".csv";
@@ -100,7 +101,13 @@ async function calculation(address) {
   for (let i = 0; i < address.length; i++) {
     const fileName = address[i].split('.').join('_') + '.csv';
     const filePath = 'result/' + fileName;
-    const fileData = await readFilePromise(filePath, 'utf8');
+    let fileData;
+    try {
+      fileData = await readFilePromise(filePath, 'utf8');
+    } catch (err) {
+      console.error(`Cannot read ${filePath}`);
+      continue;
+    }
     const fileParsed = Papa.parse(fileData).data;
 
     const endTransactionData = [];
