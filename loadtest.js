@@ -175,5 +175,4 @@ async function ParseArgv() {
 ParseArgv().then(async () => {
   console.log('Sending requests');
   await callRequest(duration, mode, messageCounter);
-  console.log('Done.');
 });
