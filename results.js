@@ -215,6 +215,8 @@ function summary(transactionTimeList, loss, N) {
   };
 
   for (let i = 0; i < transactionTimeList.length; i++) {
+    if (transactionTimeList[i].length < 1) continue;
+
     let timeForTransaction = -Infinity;
     let timeToCommit = Infinity;
 
